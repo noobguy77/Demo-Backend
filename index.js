@@ -8,7 +8,7 @@ const schedule = require("node-schedule");
 dotenv.config({ path: "./util/config.env" });
 
 const localServer = process.env.localServer;
-const port = process.env.PORT || 6969;
+const port = process.env.PORT || 5000;
 
 
 const app = express();
