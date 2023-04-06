@@ -27,7 +27,7 @@ moment.suppressDeprecationWarnings = true;
 mongoose.set("strictQuery", true);
 
 dbConfig = {
-    url: process.env.dbURL,
+    url: "mongodb://localhost/DemoBackend",
 };
 // Connecting to the database
 mongoose
