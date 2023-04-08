@@ -29,6 +29,30 @@ exports.create = (req,res) => {
     });
 }
 
+exports.escortLogin = (req, res) => {
+    Escort.find({escortID: req.body.escortID})
+    .then((data) => {
+        data = data[0];
+        if(data.escortPassword === req.body.escortPassword) {
+            res.status(200).send({
+                success: true,
+                message : "LOGGED IN!"
+            })
+        } else {
+            res.status(200).send({
+                success: false,
+                message : "LOGGED IN!"
+            })
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({
+            success: false,
+            message : err.message || "Some Error occurred while logging in Escort"
+        })
+    });
+}
+
 exports.findAll = (req,res) => {
     Escort.find({})
     .then((data) => {

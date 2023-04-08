@@ -16,4 +16,6 @@ module.exports = (app) => {
     app.delete("/escort/:escortID",escortController.delete);
 
     app.delete("/escorts",escortController.deleteAll);
+
+    app.post("/escortLogin",escortController.escortLogin);
 }
