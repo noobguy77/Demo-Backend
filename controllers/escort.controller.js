@@ -30,18 +30,18 @@ exports.create = (req,res) => {
 }
 
 exports.escortLogin = (req, res) => {
-    Escort.find({escortID: req.body.escortID})
+    Escort.find({escortID: req.body.escortID},{escortPassword: req.body.escortPassword})
     .then((data) => {
         data = data[0];
         if(data.escortPassword === req.body.escortPassword) {
-            res.status(200).send({
+            return res.status(200).send({
                 success: true,
                 message : "LOGGED IN!"
             })
         } else {
-            res.status(200).send({
+            return res.status(200).send({
                 success: false,
-                message : "LOGGED IN!"
+                message : "WRONG PASS!"
             })
         }
     })
