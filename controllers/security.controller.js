@@ -44,7 +44,7 @@ exports.findAll = (req,res) => {
 }
 
 exports.findOne = (req, res) => {
-    Security.findOne({reqID : req.params.reqID})
+    Security.findOne({secID : req.params.secID})
     .then((data) => {
         res.status(200).send({
             success : true,
@@ -61,7 +61,7 @@ exports.findOne = (req, res) => {
 }
 
 exports.delete =(req,res) => {
-    Security.delete({reqID : req.params.reqID})
+    Security.deleteOne({secID : req.params.secID})
     .then((data) => {
         res.status(200).send({
             success : true,
@@ -76,3 +76,4 @@ exports.delete =(req,res) => {
         });
     })
 }
+

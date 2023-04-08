@@ -66,11 +66,13 @@ const clientVisitor = require("./controllers/clientVisitor.controller");
 const empVisitor = require("./controllers/empVisitor.controller");
 const escort = require("./controllers/escort.controller");
 const security = require("./controllers/security.controller");
+const twilio = require("./controllers/twilio.controller");
 
 //Route Imports
 require("./routes/clientVisitor.route.js")(app);
 require("./routes/empVisitor.route.js")(app);
 require("./routes/escort.route.js")(app);
 require("./routes/security.route.js")(app);
+require("./routes/twilio.route.js")(app);
 
 app.listen(port, () => console.log("Server @ port", port));

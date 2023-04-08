@@ -5,7 +5,7 @@ module.exports = (app) => {
 
     app.get("/clientVisitors",clientController.findAll);
 
-    app.get("clientVisitor/:reqID",clientController.findOne);
+    app.get("/clientVisitor/:reqID",clientController.findOne);
 
     app.delete("/clientVisitor/:reqID",clientController.delete);
 

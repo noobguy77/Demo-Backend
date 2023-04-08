@@ -5,11 +5,15 @@ module.exports = (app) => {
 
     app.get("/escorts",escortController.findAll);
 
-    app.get("escort/:reqID",escortController.findOne);
+    app.get("/escort/:escortID",escortController.findOne);
 
-    app.get("validateRequest/:reqID",escortController.findOne);
+    app.get("/visitRequests/:escortID",escortController.visitRequests);
 
-    app.delete("/escort/:reqID",escortController.delete);
+    app.get("/validateRequest/:reqID",escortController.validateRequest);
+
+    app.post("/setAccessAreas/:reqID",escortController.setAccessAreas);
+
+    app.delete("/escort/:escortID",escortController.delete);
 
     app.delete("/escorts",escortController.deleteAll);
 }

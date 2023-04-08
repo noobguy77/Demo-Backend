@@ -47,8 +47,9 @@ exports.findAll = (req,res) => {
 }
 
 exports.findOne = (req, res) => {
-    Escort.findOne({reqID : req.params.reqID})
+    Escort.findOne({escortID : req.params.escortID})
     .then((data) => {
+        data = data[0];
         res.status(200).send({
             success : true,
             data : data
@@ -64,7 +65,7 @@ exports.findOne = (req, res) => {
 }
 
 exports.delete =(req,res) => {
-    Escort.delete({reqID : req.params.reqID})
+    Escort.deleteOne({escortID : req.params.escortID})
     .then((data) => {
         res.status(200).send({
             success : true,
@@ -75,17 +76,17 @@ exports.delete =(req,res) => {
         res.status(500).send({
             success: false,
             message:
-            err.message || "Some error occurred while deleting Escort with id" + req.body.reqID,
+            err.message || "Some error occurred while deleting Escort with id" + req.body.escortID,
         });
     })
 }
 
 exports.deleteAll =(req,res) => {
-    Escort.delete({})
+    Escort.deleteMany({})
     .then((data) => {
         res.status(200).send({
             success : true,
-            message : "DELETED!"
+            message : "DELETED ALL!"
         })
     })
     .catch((err) => {
@@ -97,6 +98,23 @@ exports.deleteAll =(req,res) => {
     })
 };
 
+exports.visitRequests = (req,res) => {
+    ClientVisitor.find({escortEmpID : req.params.escortID})
+    .then((data) => {
+        res.status(200).send({
+            success : true,
+            data : data
+        })
+    })
+    .catch((err) => {
+        res.status(500).send({
+            success: false,
+            message:
+            err.message || "Some error occurred while finding requests associated with escortID " + req.params.escortID,
+        });
+    });
+}
+
 exports.validateRequest = (req,res) => {
     const reqID = req.params.reqID;
     ClientVisitor.findOneAndUpdate(
@@ -105,7 +123,8 @@ exports.validateRequest = (req,res) => {
             $set : {
                 escStatus : true,
             }
-        }
+        },
+        {upsert : true},
     )
     .then((data) => {
         res.status(200).send({
@@ -131,7 +150,8 @@ exports.setAccessAreas = (req,res) => {
             $set : {
                 accessAreas : setAccessAreas,
             }
-        }
+        },
+        {upsert : true}
     )
     .then((data) => {
         res.status(200).send({

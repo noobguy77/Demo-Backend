@@ -16,6 +16,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.0.3",
     "node-schedule": "^2.1.1",
+    "twilio": "^4.10.0",
     "uuid": "^9.0.0"
   }
 }

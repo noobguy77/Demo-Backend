@@ -1,4 +1,4 @@
-
+const ClientVisitor = require("../models/clientVisitor.model.js")
 const { v4: uuidv4 } = require('uuid');
 
 exports.create = (req,res) => {
@@ -67,7 +67,7 @@ exports.findOne = (req, res) => {
 }
 
 exports.delete =(req,res) => {
-    ClientVisitor.delete({reqID : req.params.reqID})
+    ClientVisitor.deleteOne({reqID : req.params.reqID})
     .then((data) => {
         res.status(200).send({
             success : true,
@@ -84,7 +84,7 @@ exports.delete =(req,res) => {
 }
 
 exports.deleteAll =(req, res) => {
-    ClientVisitor.delete({})
+    ClientVisitor.deleteMany({})
     .then((data) => {
         res.status(200).send({
             success : true,

@@ -86,7 +86,7 @@ exports.setNumber = (req,res) => {
     });
 }
 exports.delete =(req,res) => {
-    EmpVisitor.delete({reqID : req.params.reqID})
+    EmpVisitor.deleteOne({reqID : req.params.reqID})
     .then((data) => {
         res.status(200).send({
             success : true,
@@ -98,6 +98,23 @@ exports.delete =(req,res) => {
             success: false,
             message:
             err.message || "Some error occurred while deleting EmpVisitor with id" + req.body.reqID,
+        });
+    })
+}
+
+exports.deleteAll =(req,res) => {
+    EmpVisitor.deleteMany({})
+    .then((data) => {
+        res.status(200).send({
+            success : true,
+            message : "DELETED ALL!"
+        })
+    })
+    .catch((err) => {
+        res.status(500).send({
+            success: false,
+            message:
+            err.message || "Some error occurred while deleting EmpVisitors ",
         });
     })
 }

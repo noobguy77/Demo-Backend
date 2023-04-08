@@ -5,7 +5,7 @@ module.exports = (app) => {
 
     app.get("/securities",securityController.findAll);
 
-    app.get("security/:reqID",securityController.findOne);
+    app.get("security/:secID",securityController.findOne);
 
-    app.delete("/security/:reqID",securityController.delete);
+    app.delete("/security/:secID",securityController.delete);
 }

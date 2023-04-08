@@ -2,8 +2,7 @@ const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_SERVICE_SID } =
   process.env;
 const client = require("twilio")(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-const ClientVisitor = require("../models/clientVisitor.controller.js");
-const encrypt = require("../encrypt.js");
+const ClientVisitor = require("../models/clientVisitor.model.js");
 
 
 exports.sendOTP = async (req, res) => {
@@ -48,13 +47,13 @@ exports.verifyOTP = (req, res) => {
               "Hello " +
               req.body.clientName +
               " your visitor pass for Tata Consultancy Services has been allocated click on the below link to download the pass http://visiteur.com/" +
-              req.body.reqID,
-            from: "+19896449535",
-            to: phoneNumber,
+              req.params.reqID,
+            from: "+15076046828",
+            to: `+${countryCode}${phoneNumber}`,
           })
           .then((message) => {
             ClientVisitor.findOneAndUpdate(
-              {reqID: req.body.reqID},
+              {reqID: req.params.reqID},
               {
                 $set : {
                   otpStatus: true,
