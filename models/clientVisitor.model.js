@@ -8,7 +8,11 @@ var clientVisitorSchema = new Schema({
     clientOrganization : String,
     purposeOfVisit : String,
     escortEmpID : String,
-    accessTime : String,
+    accessStartDay : String,
+    accessEndDay : String,
+    accessAreas : Array,
+    otpStatus : Boolean,
+    escStatus : Boolean
 });
 
 module.exports = mongoose.model("ClientVisitor", clientVisitorSchema);

@@ -8,4 +8,6 @@ module.exports = (app) => {
     app.get("clientVisitor/:reqID",clientController.findOne);
 
     app.delete("/clientVisitor/:reqID",clientController.delete);
+
+    app.delete("/clientVisitors",clientController.deleteAll);
 }

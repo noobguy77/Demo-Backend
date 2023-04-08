@@ -6,6 +6,7 @@ exports.create = (req,res) => {
     const emp = new EmpVisitor({
         reqID : uuidv4(),
         empName : req.body.empName,
+        empID : req.body.empID,
         escortID : req.body.escortID,
         accessTime : req.body.accessTime,
         accessAreas : req.body.accessAreas
@@ -61,7 +62,29 @@ exports.findOne = (req, res) => {
         });
     });
 }
-
+exports.setNumber = (req,res) => {
+    EmpVisitor.findOneAndUpdate(
+        {empID : req.body.empID},
+        {
+            $set : {
+                empNumber : req.body.empNumber,
+            },
+        }
+    )
+    .then((data) => {
+        res.status(200).send({
+            success : true,
+            data : data
+        })
+    })
+    .catch((err) => {
+        res.status(500).send({
+            success: false,
+            message:
+            err.message || "Some error occurred while updating the empVisitorNumber.",
+        });
+    });
+}
 exports.delete =(req,res) => {
     EmpVisitor.delete({reqID : req.params.reqID})
     .then((data) => {

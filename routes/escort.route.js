@@ -7,5 +7,9 @@ module.exports = (app) => {
 
     app.get("escort/:reqID",escortController.findOne);
 
+    app.get("validateRequest/:reqID",escortController.findOne);
+
     app.delete("/escort/:reqID",escortController.delete);
+
+    app.delete("/escorts",escortController.deleteAll);
 }

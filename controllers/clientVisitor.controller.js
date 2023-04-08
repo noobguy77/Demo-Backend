@@ -1,4 +1,4 @@
-const ClientVisitor = require("../models/clientVisitor.model.js");
+
 const { v4: uuidv4 } = require('uuid');
 
 exports.create = (req,res) => {
@@ -7,9 +7,12 @@ exports.create = (req,res) => {
         reqID : uuidv4(),
         clientName : req.body.clientName,
         clientOrganization : req.body.clientOrganization,
+        clientPhone : req.body.clientPhone,
         purposeOfVisit : req.body.purposeOfVisit,
         escortEmpID : req.body.escortEmpID,
         accessTime : req.body.accessTime,
+        otpStatus : false,
+        escStatus : false
     })
 
     client
@@ -79,3 +82,21 @@ exports.delete =(req,res) => {
         });
     })
 }
+
+exports.deleteAll =(req, res) => {
+    ClientVisitor.delete({})
+    .then((data) => {
+        res.status(200).send({
+            success : true,
+            message : "DELETED ALL!"
+        })
+    })
+    .catch((err) => {
+        res.status(500).send({
+            success: false,
+            message:
+            err.message || "Some error occurred while deleting clientVisitor with id" + req.body.reqID,
+        });
+    })
+};
+
