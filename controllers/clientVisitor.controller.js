@@ -10,7 +10,8 @@ exports.create = (req,res) => {
         clientPhone : req.body.clientPhone,
         purposeOfVisit : req.body.purposeOfVisit,
         escortEmpID : req.body.escortEmpID,
-        accessTime : req.body.accessTime,
+        accessStartDay : req.body.accessStartDay,
+        accessEndDay : req.body.accessEndDay,
         otpStatus : false,
         escStatus : false
     })
