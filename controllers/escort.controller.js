@@ -30,28 +30,34 @@ exports.create = (req,res) => {
 }
 
 exports.escortLogin = (req, res) => {
-    Escort.find({escortID: req.body.escortID},{escortPassword: req.body.escortPassword})
-    .then((data) => {
-        data = data[0];
-        if(data.escortPassword === req.body.escortPassword) {
-            return res.status(200).send({
-                success: true,
-                message : "LOGGED IN!"
-            })
-        } else {
-            return res.status(200).send({
-                success: false,
-                message : "WRONG PASS!"
-            })
-        }
-    })
-    .catch((err) => {
-        res.status(500).send({
-            success: false,
-            message : err.message || "Some Error occurred while logging in Escort"
+    Escort.findOne({ escortID: req.body.escortID })
+        .then((escort) => {
+            if (!escort) {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Invalid credentials',
+                });
+            }
+
+            if (escort.escortPassword === req.body.escortPassword) {
+                return res.status(200).send({
+                    success: true,
+                    message: 'Logged in successfully',
+                });
+            } else {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Invalid credentials',
+                });
+            }
         })
-    });
-}
+        .catch((err) => {
+            res.status(500).send({
+                success: false,
+                message: err.message || 'Some error occurred while logging in Escort',
+            });
+        });
+};
 
 exports.findAll = (req,res) => {
     Escort.find({})
