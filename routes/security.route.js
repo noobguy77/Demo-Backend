@@ -3,6 +3,8 @@ module.exports = (app) => {
 
     app.post("/security",securityController.create);
 
+    app.post("/securityLogin",securityController.securityLogin);
+
     app.get("/securities",securityController.findAll);
 
     app.get("security/:secID",securityController.findOne);
