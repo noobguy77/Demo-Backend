@@ -46,7 +46,7 @@ exports.verifyOTP = (req, res) => {
             body:
               "Hello " +
               req.body.clientName +
-              " your visitor pass for Tata Consultancy Services has been allocated click on the below link to download the pass http://13.126.7.255:5000/visitorPass" +
+              " your visitor pass for Tata Consultancy Services has been allocated click on the below link to download the pass http://13.126.7.255:5000/visitorPass/" +
               req.params.reqID,
             from: "+15076046828",
             to: `+${countryCode}${phoneNumber}`,
