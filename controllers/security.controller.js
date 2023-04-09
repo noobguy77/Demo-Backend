@@ -26,6 +26,36 @@ exports.create = (req,res) => {
     });
 }
 
+exports.securityLogin = (req, res) => {
+    Security.findOne({ secID: req.body.secID })
+        .then((security) => {
+            if (!security) {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Invalid credentials',
+                });
+            }
+
+            if (security.secPass === req.body.secPass) {
+                return res.status(200).send({
+                    success: true,
+                    message: 'Logged in successfully',
+                });
+            } else {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Invalid credentials',
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({
+                success: false,
+                message: err.message || 'Some error occurred while logging in Security',
+            });
+        });
+};
+
 exports.findAll = (req,res) => {
     Security.find({})
     .then((data) => {
