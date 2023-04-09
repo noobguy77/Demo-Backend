@@ -79,7 +79,6 @@ exports.findAll = (req,res) => {
 exports.findOne = (req, res) => {
     Escort.findOne({escortID : req.params.escortID})
     .then((data) => {
-        data = data[0];
         res.status(200).send({
             success : true,
             data : data
