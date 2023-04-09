@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visitor Pass</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <script src="../js/barcode.js"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      ::-webkit-scrollbar {
+        width: 0.65vw;
+        height: 0vh;
+      }
+      ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgb(155, 155, 155);
+        border-radius: 0.5vw;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgb(110, 110, 110);
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        background: white;
+      }
+      .header {
+        width: 100%;
+        font-family: "Space Mono";
+        padding: 5px 0;
+      }
+      .header .title {
+        font-size: x-large;
+        width: fit-content;
+        padding: 10px 15px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+      }
+      .header .title span {
+        margin-right: 10px;
+        font-size: xx-large;
+        color: rgb(0, 161, 75);
+      }
+      .form {
+        width: 100%;
+        min-height: calc(100vh - 120px);
+        border-radius: 4mm;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-direction: column;
+        background: rgb(235, 235, 235);
+      }
+      .pass {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 380px;
+        height: fit-content;
+        max-height: fit-content;
+        padding: 0;
+        box-sizing: border-box;
+        background: white;
+        position: relative;
+      }
+      .top {
+        width: 380px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 0;
+        height: fit-content;
+      }
+      .top-title {
+        font-family: poppins;
+        font-size: medium;
+        font-weight: 500;
+      }
+      .top img {
+        margin: auto;
+        width: 370px;
+        margin-top: 5px;
+      }
+      .middle {
+        width: 100%;
+        padding: 10px;
+        flex-grow: 1;
+        box-sizing: border-box;
+      }
+      .middle .name {
+        background: linear-gradient(
+          90deg,
+          rgb(0, 161, 75) 30%,
+          rgb(139, 197, 63) 100%
+        );
+        font-size: 25px;
+        font-family: poppins;
+        font-weight: 500;
+        width: 360px;
+        word-wrap: break-word;
+        margin: 5px 0;
+        color: white;
+        box-sizing: border-box;
+        padding: 0 5px;
+        border-radius: 2mm;
+        margin-bottom: 12px;
+      }
+      .middle .details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .bottom {
+        width: 100%;
+        border-top: 0.6mm dashed rgba(45, 45, 45, 0.68);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: rgb(225, 252, 227);
+      }
+      .footer {
+        background: linear-gradient(
+          90deg,
+          rgb(0, 161, 75) 30%,
+          rgb(139, 197, 63) 100%
+        );
+        width: 100%;
+        padding: 5px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .footer a {
+        text-decoration: none;
+        font-size: x-large;
+        font-family: poppins;
+        color: white;
+        font-weight: 500;
+        margin: 15px 20px;
+      }
+      .footer p {
+        font-family: poppins;
+        font-size: medium;
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 400;
+        margin-right: 20px;
+      }
+      .small-title {
+        font-size: large;
+        font-family: raleway;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+      }
+      .image {
+        width: 100px;
+        height: 120px;
+      }
+      .image img {
+        width: 100px;
+        height: 120px;
+        overflow: hidden;
+        object-fit: cover;
+      }
+      .check {
+        font-family: poppins;
+        flex-grow: 1;
+        box-sizing: border-box;
+        padding-right: 5px;
+      }
+      .check-title {
+        font-size: x-large;
+        color: rgba(0, 0, 0, 0.523);
+      }
+      .time {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-grow: 1;
+        padding-bottom: 15px;
+        padding-top: 5px;
+        flex-wrap: wrap;
+      }
+      .inout {
+        display: flex;
+        width: fit-content;
+        flex-direction: column;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: justify;
+      }
+      .inout .label {
+        font-size: small;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.838);
+        letter-spacing: 1px;
+      }
+      .circle {
+        position: absolute;
+        width: 17px;
+        height: 34px;
+        top: -17px;
+        background: rgb(235, 235, 235);
+      }
+      .circle.left {
+        left: 0;
+        border-bottom-right-radius: 17px;
+        border-top-right-radius: 17px;
+      }
+      .circle.right {
+        right: 0;
+        border-top-left-radius: 17px;
+        border-bottom-left-radius: 17px;
+      }
+      .print {
+        background: none;
+        width: fit-content;
+        height: fit-content;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        color: rgb(3, 122, 15);
+        font-family: poppins;
+        font-size: small;
+        font-weight: 600;
+        padding-top: 10px;
+      }
+      .details-title {
+        font-size: x-large;
+        color: rgb(26, 26, 26);
+        font-family: "radio canada";
+        margin: auto;
+        width: 100%;
+        text-align: center;
+        padding-top: 15px;
+        font-weight: bold;
+      }
+      .bot-left {
+        padding-left: 25px;
+        padding-right: 20px;
+        border-right: 0.5mm solid rgba(51, 51, 51, 0.774);
+        padding-top: 5px;
+        padding-bottom: 15px;
+      }
+      .bot-right {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 5px;
+        padding-bottom: 15px;
+      }
+      @media print {
+        .pagebreak {
+          page-break-before: always;
+        }
+        .header {
+          display: none;
+        }
+        .footer {
+          display: none;
+        }
+        .print {
+          display: none;
+        }
+        body * {
+          visibility: hidden;
+        }
+        .pass,
+        .pass * {
+          visibility: visible;
+        }
+        .pass {
+          transform: scale(2);
+          border: 0.5mm solid rgb(49, 49, 49);
+          height: 390px;
+        }
+        .circle {
+          background: white;
+          border: 0.5mm solid rgb(49, 49, 49);
+        }
+        .circle.left {
+          border-left: none;
+          left: -3px;
+        }
+        .circle.right {
+          border-right: none;
+          right: -3px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="header">
+      <div class="title">
+        <span class="material-icons-round"> confirmation_number </span>
+        Visitor Pass | TCS
+      </div>
+    </section>
+    <section class="form">
+      <div class="pass">
+        <div class="middle">
+          <div class="name"><%= data.data.clientName %></div>
+          <div class="details">
+            <div class="check">
+              <div class="time">
+                <div class="inout">
+                  <div class="label">Date</div>
+                  <%= new Date().toDateString() %>
+                </div>
+                <div class="inout">
+                  <div class="label">Phone</div>
+                  <%= data.data.clientPhone %>
+                </div>
+              </div>
+              <div class="time">
+                <div class="inout">
+                  <div class="label">Validity</div>
+                  From <%= data.data.accessStartDay %> to <%= data.data.accessEndDay %>
+                </div>
+                <div class="inout">
+                  <div class="label">Purpose</div>
+                  <%= data.data.purposeOfVisit %>
+                </div>
+                <div class="inout">
+                  <div class="label">Escort Emp ID</div>
+                  <%= data.data.escortEmpID %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="circle left"></div>
+          <div class="circle right"></div>
+          <div class="bot-left"></div>
+          <div class="bot-right">
+            <div class="details-title">Visitor Pass</div>
+            <svg id="barcode"></svg>
+          </div>
+        </div>
+        <script>
+          JsBarcode("#barcode", "123456772343", {
+            width: 1.1,
+            height: 60,
+            displayValue: false,
+            background: "rgb(225, 252, 227)",
+          });
+        </script>
+      </div>
+    </section>
+  </body>
+</html>

@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const moment = require("moment");
 const schedule = require("node-schedule");
+const request = require("request");
 dotenv.config({ path: "./util/config.env" });
 
 const localServer = process.env.localServer;
@@ -25,6 +26,10 @@ app.use(cors());
 mongoose.Promise = global.Promise;
 moment.suppressDeprecationWarnings = true;
 mongoose.set("strictQuery", true);
+
+let serverRoute = process.env.serverAddress;
+let clientRoute = process.env.clientAddress;
+
 
 dbConfig = {
     url: "mongodb://localhost/DemoBackend",
@@ -74,5 +79,25 @@ require("./routes/empVisitor.route.js")(app);
 require("./routes/escort.route.js")(app);
 require("./routes/security.route.js")(app);
 require("./routes/twilio.route.js")(app);
+
+app.set("view engine", "ejs");
+
+
+app.get("/visitorPass/:reqID", async (req,res) => {
+    console.log(serverRoute);
+    let options = {
+        url: serverRoute + "/clientVisitor/" + req.params.reqID,
+        method: "get",
+        json: true
+    };
+    request(options, (err, response, body) => {
+        console.log(body)
+        if (body.success) {
+            res.render("visitorpass", {
+                data : body
+            });
+        }
+    });
+})
 
 app.listen(port, () => console.log("Server @ port", port));
