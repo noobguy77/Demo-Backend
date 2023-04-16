@@ -7,6 +7,7 @@ var clientVisitorSchema = new Schema({
     clientName : String,
     clientOrganization : String,
     clientPhone : String,
+    clientPhoto : String,
     purposeOfVisit : String,
     escortEmpID : String,
     accessStartDay : String,

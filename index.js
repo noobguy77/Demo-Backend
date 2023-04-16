@@ -19,7 +19,7 @@ app.use(
         extended: true,
     })
 );
-
+app.use("/", express.static(__dirname + "/"));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -93,7 +93,7 @@ app.get("/visitorPass/:reqID", async (req,res) => {
     request(options, (err, response, body) => {
         console.log(body)
         if (body.success) {
-            res.render("visitorpass", {
+            res.render("visPass", {
                 data : body
             });
         }

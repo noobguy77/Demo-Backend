@@ -8,6 +8,7 @@ exports.create = (req,res) => {
         clientName : req.body.clientName,
         clientOrganization : req.body.clientOrganization,
         clientPhone : req.body.clientPhone,
+        clientPhoto : req.body.clientPhoto,
         purposeOfVisit : req.body.purposeOfVisit,
         escortEmpID : req.body.escortEmpID,
         accessStartDay : req.body.accessStartDay,

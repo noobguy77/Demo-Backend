@@ -1,0 +1,535 @@
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pass</title>
+    <link rel="preconnect" href="https//fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Red+Hat+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        header {
+            width: 100%;
+            background: rgb(28, 28, 37);
+            position: relative;
+            height: 70px;
+        }
+
+        .logo {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .htitle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Major Mono Display";
+            font-size: 26px;
+            color: white;
+            height: 70px;
+        }
+
+        .main {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            position: relative;
+        }
+
+        .left {
+            width: 400px;
+            box-sizing: border-box;
+            padding: 40px 25px;
+        }
+
+        .right {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .ltop {
+            font-family: poppins;
+        }
+
+        .topb {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .tops {
+            font-size: 14px;
+            color: rgb(128, 133, 139);
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        .tops a {
+            text-decoration: none;
+            color: rgb(246, 156, 10);
+        }
+
+        .split {
+            width: 373px;
+            min-width: 373px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            scroll-behavior: smooth !important;
+        }
+
+        .inputf {
+            width: 350px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        .inputf input,
+        .inputf select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            height: 40px;
+            font-family: "Red Hat Mono";
+            font-size: 15px;
+            outline: none;
+            border: none;
+            transition: 0.25s;
+            background: rgb(242, 244, 245);
+            border-radius: 2mm;
+            border: 0.6mm solid transparent;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .inputf textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            height: 115px;
+            border-radius: 2mm;
+            font-family: "Red Hat Mono";
+            font-size: 15px;
+            outline: none;
+            border: none;
+            transition: 0.25s;
+            background: rgb(242, 244, 245);
+            border: 0.6mm solid transparent;
+            font-weight: 500;
+            letter-spacing: 1px;
+            resize: none;
+        }
+
+        .inputf .label {
+            font-size: 13px;
+            font-family: poppins;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: rgb(123, 128, 134);
+            font-weight: 600;
+            display: block;
+        }
+
+        .inputf input::placeholder {
+            color: rgb(179, 187, 194);
+        }
+
+        .inputf input:focus::placeholder {
+            visibility: hidden;
+        }
+
+        .inputf input:focus {
+            outline: none;
+            border: 0.6mm solid rgb(246, 136, 10);
+        }
+
+        .inputf textarea::placeholder {
+            color: rgb(179, 187, 194);
+        }
+
+        .inputf textarea:focus::placeholder {
+            visibility: hidden;
+        }
+
+        .inputf textarea:focus {
+            outline: none;
+            border: 0.6mm solid rgb(246, 136, 10);
+        }
+
+        .btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .btn button {
+            margin: auto;
+            display: block;
+            margin-top: 20px;
+            width: 350px;
+            background: rgb(246, 136, 10);
+            color: white;
+            font-size: medium;
+            font-family: poppins;
+            outline: none;
+            padding: 7px 0;
+            border: none;
+            border-radius: 1mm;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn button:hover {
+            background: rgb(246, 156, 10);
+        }
+
+        #video {
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        #canvas {
+            height: 200px;
+            width: 150px;
+            overflow: hidden;
+            object-fit: contain;
+        }
+
+        #cam-btn {
+            width: 50px;
+            height: 50px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 0.6mm solid rgba(50, 50, 50, 0.824);
+            background: white;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #cam-btn:hover {
+            border-color: rgb(246, 136, 10);
+        }
+
+        #cam-btn span {
+            font-size: 25px;
+            color: rgb(48, 48, 48);
+        }
+
+        .imagef {
+            font-family: poppins;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .image-capture {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 10px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .smallBtn button {
+            width: 40%;
+        }
+
+        .form-data {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 50px 0;
+            width: 373px;
+            box-sizing: content-box;
+            border-radius: 2mm;
+            position: relative;
+            margin-bottom: 40px;
+            overflow: hidden;
+            scroll-behavior: smooth !important;
+        }
+
+        .doubleIn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #phoneCode {
+            width: 52px;
+            margin-right: 10px;
+            color: rgb(148, 148, 148);
+        }
+
+        #phoneCode:focus {
+            border-color: transparent;
+        }
+
+        #phone {
+            width: fit-content;
+            flex-grow: 1;
+        }
+
+        .pass {
+            width: 403px;
+            height: 440px;
+            margin-top: 20px;
+            position: relative;
+            box-sizing: border-box;
+        }   
+
+        .passBack {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 440px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .c1 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(rgb(239, 0, 0) 10%, rgb(246, 156, 10) 80%);
+            top: -50%;
+            left: 25%;
+            transform: translate(-25%, 120%);
+        }
+
+        .c2 {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(rgb(126, 2, 211) 10%,
+                    rgb(213, 44, 144) 80%);
+            top: -50%;
+            left: 85%;
+            transform: translate(-85%, 120%);
+        }
+
+        .front-top {
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .passFront {
+            background: rgba(243, 243, 245, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .pass-logo {
+            width: 100%;
+            height: 30px;
+        }
+
+        .pass-logo img {
+            height: 30px;
+            float: right;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .pass-title {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 20px;
+            font-family: poppins;
+            font-size: 13px;
+            color: rgb(128, 133, 139);
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .pass-Name {
+            font-family: "red hat mono";
+            font-size: 24px;
+            font-weight: 500;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+
+        .p-subtitle {
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            font-family: poppins;
+            margin-top: 20px;
+            margin-bottom: 7px;
+        }
+
+        .p-subtitle span {
+            font-size: 18px;
+            margin-right: 3px;
+            color: rgb(52, 168, 83);
+        }
+
+        #govt_name {
+            width: 100px;
+            margin-right: 10px;
+        }
+
+        #govt {
+            flex-grow: 1;
+        }
+
+        .data {
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3px;
+        }
+
+        .data-tag {
+            font-size: 13px;
+            color: rgb(246, 136, 10);
+            font-family: poppins;
+        }
+
+        .data-part {
+            font-size: 13px;
+            font-family: "red hat mono";
+        }
+
+        #pic {
+            width: 90px;
+            height: 120px;
+            margin-left: 15px;
+        }
+
+        #pic img {
+            width: 90px;
+            height: 120px;
+        }
+
+        .visitId {
+            width: 100px;
+            margin-right: 15px;
+        }
+
+        .visitId img {
+            width: 100px;
+        }
+
+        .footer {
+            width: 100%;
+            background: black;
+            height: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 0;
+        }
+
+        .footer img {
+            height: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="pass">
+        <div class="passBack">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+        </div>
+        <div class="passFront">
+            <div class="front-top">
+                <div class="pass-logo">
+                    <img src="../images/logo.png" alt="" />
+                </div>
+                <div class="pass-title">Visitor Pass</div>
+                <div class="pass-Name" id="pass-name"><%= data.data.clientName %></div>
+                <div class="p-subtitle">
+                    <span class="material-icons"> info </span>Vistor Details
+                </div>
+                <div class="data">
+                    <div id="pic">
+                        <img src="<%= data.data.clientPhoto %>" alt="" >
+                    </div>
+                    <div class="visitId">
+                        <img src="../images/qr.png" alt="qr" />
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="data-tag">Phone No.</div>
+                    <div class="data-part" id="pass-phone">+91-<%= data.data.clientPhone %></div>
+                </div>
+                <div class="data">
+                    <div class="data-tag" id="pass-proof">
+                        Access Time
+                    </div>
+                    <div class="data-part" id="pass-govt">From <%= data.data.accessStartDay %> to <%= data.data.accessEndDay %></div>
+                </div>
+                <div class="p-subtitle">
+                    <span class="material-icons"> info </span>Escort Details
+                </div>
+                <div class="data">
+                    <div class="data-tag">Escort Employee ID</div>
+                    <div class="data-part" id="pass-host"><%= data.data.escortEmpID %></div>
+                </div>
+            </div>
+            <div class="footer">
+                <img src="../images/footer.png" alt="" />
+            </div>
+        </div>
+    </div>
+</body>
