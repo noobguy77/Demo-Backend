@@ -19,6 +19,12 @@ app.use(
         extended: true,
     })
 );
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+// handle requests here...
 app.use("/", express.static(__dirname + "/"));
 app.use(bodyParser.json());
 app.use(cors());
