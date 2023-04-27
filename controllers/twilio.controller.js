@@ -140,61 +140,10 @@ exports.verifyOTPBloodBank = (req, res) => {
     .then((resp) => {
       if (resp.valid) {
         console.log("OTP VERIFICATION SUCCESS");
-        Bank.findOneAndUpdate(
-          { phoneNumber: req.params.phoneNumber },
-          {
-            $set: {
-              otpStatus: true,
-            }
-          }
-        )
-          .then((data) => {
-            if(data.type) {
-              client1.messages
-                .create({
-                  body:
-                    "Hello Donor " +
-                    data.name +
-                    " your slot has been allocated on "+data.slotDate+" at "+data.slotTime+". Please visit your respective hospital - "+data.hospital,
-                  from: "+16076382242",
-                  to: `+${countryCode}${phoneNumber}`,
-                })
-                .then((message) => {
-                  res.status(200).send({
-                    message: message,
-                    success: true,
-                  });
-                })
-                .catch((err) => {
-                  res.status(400).send({
-                    message: err.message || "Error While sending pass message",
-                    error: true,
-                  });
-                })
-            } else {
-              client1.messages
-                .create({
-                  body:
-                    "Hello Receiver " +
-                    data.name +
-                    " your slot has been allocated on "+data.slotDate+" at "+data.slotTime+". Please visit your respective hospital - "+data.hospital,
-                  from: "+16076382242",
-                  to: `+${countryCode}${phoneNumber}`,
-                })
-                .then((message) => {
-                  res.status(200).send({
-                    message: message,
-                    success: true,
-                  });
-                })
-                .catch((err) => {
-                  res.status(400).send({
-                    message: err.message || "Error While sending pass message",
-                    error: true,
-                  });
-                })
-            }
-          })
+        return res.status(200).send({
+          success : true,
+          message : "OTP Verified!"
+        })
       } else {
         res.status(400).send({
           error: true,
