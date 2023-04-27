@@ -68,44 +68,52 @@ exports.verifyOTP = (req, res) => {
     .then((resp) => {
       if (resp.valid) {
         console.log("OTP VERIFICATION SUCCESS");
-        client.messages
-          .create({
-            body:
-              "Hello " +
-              req.body.clientName +
-              " your Visitor Pass  has been allocated click on the below link to download the pass http://65.2.82.118:5000/visitorPass/" +
-              req.params.reqID,
-            from: "+15076046828",
-            to: `+${countryCode}${phoneNumber}`,
-          })
-          .then((message) => {
-            ClientVisitor.findOneAndUpdate(
-              { reqID: req.params.reqID },
-              {
-                $set: {
-                  otpStatus: true,
+        ClientVisitor.findOne({clientPhone : req.params.clientPhone})
+        .then((data) => {
+          client.messages
+            .create({
+              body:
+                "Hello " +
+                data.clientName +
+                " your Visitor Pass has been allocated click on the below link to download the pass http://65.2.82.118:5000/visitorPass/" +
+                data.reqID,
+              from: "+15076046828",
+              to: `+${countryCode}${phoneNumber}`,
+            })
+            .then((message) => {
+              ClientVisitor.findOneAndUpdate(
+                { reqID: req.params.reqID },
+                {
+                  $set: {
+                    otpStatus: true,
+                  }
                 }
-              }
-            )
-              .then((data) => {
-                res.status(200).send({
-                  success: true,
-                  data: message,
+              )
+                .then((data) => {
+                  res.status(200).send({
+                    success: true,
+                    data: message,
+                  })
                 })
-              })
-              .catch((err) => {
-                res.status(500).send({
-                  message: err.message || "Error While sending pass message 1",
-                  error: true,
+                .catch((err) => {
+                  res.status(500).send({
+                    message: err.message || "Error While sending pass message 1",
+                    error: true,
+                  })
                 })
-              })
-          })
-          .catch((err) => {
-            res.status(400).send({
-              message: err.message || "Error While sending pass message",
-              error: true,
-            });
-          })
+            })
+            .catch((err) => {
+              res.status(400).send({
+                message: err.message || "Error While sending pass message",
+                error: true,
+              });
+            })
+        })
+        .catch((err) => {
+          res.status(400).send({
+            message: " FEtching Clients After OTP FAILED",
+          });
+        })
       } else {
         res.status(400).send({
           error: true,
